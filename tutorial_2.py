@@ -1,3 +1,6 @@
+#Request Body
+#Request Body + Path Parameters
+#Request Body + Path Parameters + Query Parameters
 from fastapi import FastAPI
 from pydantic import BaseModel
 from enum import Enum
@@ -23,7 +26,7 @@ app = FastAPI()
 async def root():
     return {"message":"Hello World"}
 ##Request Body##
-#A request body can be used to convey data from client to server
+#A request body can be used to convey data from client to server or vice versa
 #A request body is sent as a json payload
 
 @app.post("/arithmatic/")
@@ -103,3 +106,33 @@ async def math(op:operation, values:Values):
     return calculation
 
 
+#Request Body + Path Parameters + Query Parameters
+@app.post("/mathplus/{op}")
+async def mathplus(op:operation, values:Values, num3:int | None = None):
+    num1 = values.num1
+    num2 = values.num2
+    op = op.value
+    calculation = {
+        'op' : op,
+        'num1' : num1,
+        'num2' : num2,
+        'num3' : num3
+    }
+    if not num3:
+        num3 = 1 if (op == 'div' or op == 'mul') else 0
+        del calculation['num3']
+    
+    if op == 'add':
+        calculation['value'] = num1 + num2 + num3
+    elif op == 'sub':
+        calculation['value'] = num1 - num2 - num3
+    elif op == 'mul':
+        calculation['value'] = num1 * num2 * num3
+    elif op == 'div':
+        if num2 != 0 or num3 != 0:
+            calculation['value'] = num1 / num2 / num3
+        else:
+            calculation['value'] = num1
+    else:
+        calculation['value'] = None
+    return calculation

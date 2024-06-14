@@ -1,3 +1,4 @@
+#Fast API Intialization, Path Parameters, Query Parameters
 from fastapi import FastAPI
 from enum import Enum
 
@@ -82,3 +83,4 @@ async def addto(num1:int=0, num2:int | None = None):
         return num1 + num2
     else:
         return num1 + 10
+    
