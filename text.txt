@@ -1,0 +1,22 @@
+#for development the API can be run as a server by - 
+	fastapi dev main.py
+#path or endpoint
+	eg URL - https://example.com/items/foo
+	path - /items/foo
+	When developing a API "path" is the main way to seperate "concerns" and "resources"
+#CRUD
+	C - Create (create data)
+	R - Read (read data)
+	U - Update (update data)
+	D - Delete (delete data)
+#HTTP Methods
+	A REST-API uses HTTP methods to accomplish CRUD.
+	C - POST
+	R - GET
+	U - PUT
+	D - DELETE
+#HTTP Methods in Fast API
+	POST - @app.post()
+	GET  - @app.get()
+	PUT  - @app.put()
+	DELETE - @app.delete()
