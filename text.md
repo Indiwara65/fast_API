@@ -25,6 +25,6 @@
  	A hand shake intially happens before the data transfer happens. 
   	Initially, the client sends a hello to the server it contains the TLS versions that the client handles and cipher suite.
    	Then the server presents the TLS certificate to the client with the public key.
-    	Then, the client generated a pre master key which is encrypted using the public key and sent back to the server.
-     	Then based on the pre master key and other data a master key is generated which will be used as the session key which will be used to encrypt the data transferd in the session.
+	Then, the client generated a pre master key which is encrypted using the public key and sent back to the server.
+	Then based on the pre master key and other data a master key is generated which will be used as the session key which will be used to encrypt the data 		transferd in the session.
 	
