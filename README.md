@@ -1,9 +1,15 @@
 * for development the API can be run as a server by - 
-	fastapi dev main.py
+	fastapi dev main.py                   
+* run as a server -                    
+	* command - uvicorn main:app --port=3000 --reload
+	* main - name of code base           
+	* --port   - a flag to indicate the port
+	* --reload - a flag to indicate if to reload the server every time a change is done 
 * path or endpoint
 	eg URL - https://example.com/items/foo
 	path - /items/foo
-	When developing a API "path" is the main way to seperate "concerns" and "resources"
+	When developing a API "path" is the main way to seperate "concerns" and "resources"                       
+![alt text](image.png)
 ## RESTful API   
  * RESTful - **RE**presentational **S**tate **T**ransfer        
  * Were **full** suffix means that the system adheres to the principles of REST.                
