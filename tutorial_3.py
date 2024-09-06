@@ -1,4 +1,4 @@
-#Validations
+#Validations - Path, Query & Body
 from fastapi import FastAPI, Query, Path, Body
 from pydantic import BaseModel, Field
 from enum import Enum
@@ -61,4 +61,3 @@ class CarInfo(BaseModel):
 def valbody(carinfo : Annotated[CarInfo, Body()]):
     return carinfo
 
-#  
