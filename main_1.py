@@ -1,21 +1,30 @@
-##Path Parameters 
-#path parameters or variables are used to take inputs to path operators from the user
-#path parameters can be set to have specific type enumerations
-
 from fastapi import FastAPI
+from pydantic import BaseModel
+
 
 app = FastAPI()
 
 @app.get("/")
-def root():
-    return "HelloWorld"
+async def route():
+    return "Hello"
 
-#datatype not specified path variable
-@app.get("/var_1/{var}")
-def read_var1(var):
-    return {"var":var,"var_type":str(type(var))}
+########### Request Body ###########
+#When data is sent from client to API a request body can be used.
+#A request body is sent for every request but is not madetory.
+#POST, DELETE or PATCH can be used to send data to the API
+#Once a data model is created and added as a path parameter the client needs to send a request body with the mandotary fields as a JSON object
+#The request body is read as JSON -> Convert data types(if needed) -> validate data
+class Item(BaseModel):           #data model
+    name:str
+    description:str|None=None    #non mandotary filed (optional)
+    price:float
+    tax:float|None=None          #non mandatory filed
 
-#datatype specified
-@app.get("/var_2/{var}")
-def read_var2(var:int):
-    return {"var":var, "var_type":str(type(var))}
+@app.post("/items/")             #decclare it as a parameter
+async def create_item(item:Item):
+    print(f"type:{type(item)}")
+    print(f"name:{item.name}")
+    print(f"desceiption:{item.description}")
+    print(f"price:{item.price}")
+    print(f"tax:{item.tax}")
+    return item
