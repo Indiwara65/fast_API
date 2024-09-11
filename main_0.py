@@ -80,5 +80,42 @@ async def read_default_emoji(emoji_name:DefaultEmoji):
 
 @app.get("/default_emoji_id/{emoji_id}")
 async def read_default_emoji_id(emoji_Id:DefaultEmojiId):
-    #print(f"emoji Id : {emoji_Id.value}")
     return emoji_Ids[str(emoji_Id.value)]
+
+####### Query Parameters #######
+#Query parameters are used afer a question and are not mandetory. 
+#Query parameters can have default values unlike path parameters.
+#Query parameters order doesn't matter
+
+
+@app.get("/emoji_text/")
+async def emoji_plus_text(text:str="Hi!", emoji_name:str="cool_face"):
+    if emoji_name in emojis.keys():
+        return f"{text} {emojis[emoji_name]}"
+    else:
+        return f"Emoji unavailable {emojis['sad_face']}"
+    
+##Optional query parameters
+@app.get("/text_emoji/")
+async def emoji_with_text(text:str|None=None, emoji_name:str='cool_face'):
+    if text is not None and emoji_name in emojis.keys():
+        text =  f"{text} {emojis[emoji_name]}"
+    elif emoji_name in emojis.keys():
+        text =  f"{emojis[emoji_name]}"
+    else:
+        text = f"Emoji unavailable {emojis['sad_face']}"
+    return text
+
+##Bool type query parameters
+#query parameter value can be set to 1, True, true, on or yes which will be converted to python boolean
+@app.get("/reverse_emoji/{emoji_name}")
+async def emoji_reverse(emoji_name:str, reverse:bool=False):
+    if emoji_name in emojis.keys():
+        emoji = emojis[emoji_name]
+        text = emoji if not reverse else emoji[::-1]
+    else:
+        emoji = emojis["sad_face"]
+        text = f"{emoji} emoji unavailable {emoji[::-1]}"
+    return text
+##Required Query Parameters
+#if a query parameter does not have a default value the the query parameter becomes mandetory
