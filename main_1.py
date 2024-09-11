@@ -20,11 +20,53 @@ class Item(BaseModel):           #data model
     price:float
     tax:float|None=None          #non mandatory filed
 
+items = {"0":Item(
+    name="Soda",
+    description="Breverage",
+    price=1.25,
+    tax=0.02),
+    "1":Item(
+    name="Buger",
+    description="Solid Food",
+    price=2.25,
+    tax=0.12),
+    "2":Item(
+    name="Fries",
+    description="Solid Food",
+    price=2.0,
+    tax=0.10)
+    }
+
 @app.post("/items/")             #decclare it as a parameter
 async def create_item(item:Item):
-    print(f"type:{type(item)}")
-    print(f"name:{item.name}")
-    print(f"desceiption:{item.description}")
-    print(f"price:{item.price}")
-    print(f"tax:{item.tax}")
-    return item
+    last_item_Id = int(list(items.keys())[-1])
+    item_Id = str(last_item_Id+1)
+    items[item_Id] = item
+    print(items)
+    return item_Id
+
+##Path parameter + request body
+@app.put("/items/{item_Id}")
+async def update_item(item_Id:str, item:Item):
+    item_Ids = list(items.keys())
+    if item_Id in item_Ids:
+        items[item_Id] = item
+        print(items[item_Id])
+        return "Yes"
+    else:
+        return "NO"
+    
+##Path parameter + request body + query parameters
+@app.put("/items/update_tax/{item_Id}")
+async def update_item(item_Id:str, item:Item, tax_rate:float|None):
+    item_Ids = list(items.keys())
+    if item_Id in item_Ids:
+        if tax_rate is not None:
+            tax = item.price*tax_rate
+            print(f"tax:{tax}")
+            items[item_Id].tax = tax
+        print(items[item_Id])
+        return "Yes"
+    else:
+        return "NO"
+        
