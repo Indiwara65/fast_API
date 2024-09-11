@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from enum import Enum
 
 emojis = {"smiley_face":":-)",
           "winking_face":";-)",
@@ -61,4 +62,23 @@ async def read_emoji_Id(emoji_Id:int):
     else:
         return f"No emoji found {emojis['sad_face']}"
     
+####### Predefined Values #######
 
+class DefaultEmoji(str, Enum):
+    smiley_face = "smiley_face"
+    cool_face = "cool_face"
+    heart = "heart"
+
+class DefaultEmojiId(int, Enum):
+    smiley_face = 0
+    cool_face = 4
+    heart = 7
+
+@app.get("/default_emoji/{emoji_name}")
+async def read_default_emoji(emoji_name:DefaultEmoji):
+    return emojis[emoji_name.value]
+
+@app.get("/default_emoji_id/{emoji_id}")
+async def read_default_emoji_id(emoji_Id:DefaultEmojiId):
+    #print(f"emoji Id : {emoji_Id.value}")
+    return emoji_Ids[str(emoji_Id.value)]
