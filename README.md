@@ -36,7 +36,12 @@
 	U - PUT
 	D - DELETE
 ## HTTP Methods in Fast API
-	POST - @app.post()
-	GET  - @app.get()
-	PUT  - @app.put()
-	DELETE - @app.delete()
+	POST   - @app.post()
+	GET    - @app.get()
+	PUT    - @app.put()
+	DELETE - @app.delete()           
+	More exotic methods
+	OPTIONS- @app.options() 
+	HEAD   - @app.head()
+	PATCH  - @app.patch()
+	TRACE  - @app.trace()
