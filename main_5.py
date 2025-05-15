@@ -46,3 +46,25 @@ def channelName(channel_name:ChannelName):
     else:
         owner = "Not defined"
     return {'owner':owner}
+
+##Querry Parameters
+@app.get("/message/")
+def hello(message:str):
+    return {"message":message}
+
+@app.get("/default/")
+def default_message(message:str="Hello World", message_type:str=None):
+    if message_type:
+        return {"message":message,"message_type":message_type}
+    else:
+        return {"message":message}
+    
+#required query parameters
+@app.get("/required/")
+def required_message(message:str):
+    return {'messsage':message}
+
+#both path and query parameter
+@app.get("/path/{channel_name}/owner/{owner}")
+def path_query(channel_name:ChannelName,owner:str,rating:int):
+    return {'channel_name':channel_name,'owner':owner,'rating':'good' if rating>3 else 'bad'}
